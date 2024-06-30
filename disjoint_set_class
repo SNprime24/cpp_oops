@@ -1,0 +1,37 @@
+class disjointset{
+        private:
+            int size;
+            vector<int>parent;
+            vector<int>rank;
+        public:
+            disjointset(int n){
+                size=n;
+                parent.resize(n);
+                rank.resize(n,0);
+                for(int i=0;i<n;i++)parent[i]=i;
+            }
+            int finds(int x){
+                if(parent[x]!=x)parent[x]=finds(parent[x]);      //path compression
+                return parent[x];
+            }
+            void unions(int x, int y){
+                int parentx = finds(x);
+                int parenty = finds(y);
+                if(parentx!=parenty){                                            //Union by rank
+                    if(rank[parentx]>rank[parenty]) parent[parenty]=parentx;
+                    else if(rank[parentx]<rank[parenty]) parent[parentx]=parenty;
+                    else {
+                        parent[parentx]=parenty;
+                        rank[parenty]++;
+                    }
+                }
+            }
+            bool is_connection(int x, int y){
+                return finds(x)==finds(y);
+            }
+            bool is_fully_connected(){
+                int temp = finds(0);
+                for(int i=0;i<size;i++)if(finds(i)!=temp)return false;
+                return true;
+            }
+    };
