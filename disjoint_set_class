@@ -10,10 +10,17 @@ class disjointset{
                 rank.resize(n,0);
                 for(int i=0;i<n;i++)parent[i]=i;
             }
+
             int finds(int x){
                 if(parent[x]!=x)parent[x]=finds(parent[x]);      //path compression
                 return parent[x];
             }
+
+            // int finds(int x){
+            //    if(parent[x]==x)return x                       //without path compression
+            //    return finds(parent[x]);
+            // }
+
             void unions(int x, int y){
                 int parentx = finds(x);
                 int parenty = finds(y);
@@ -25,7 +32,9 @@ class disjointset{
                         rank[parenty]++;
                     }
                 }
+                // if(parentx != parenty) parent[parentx] = parenty;           //without unioun by rank
             }
+
             bool is_connection(int x, int y){
                 return finds(x)==finds(y);
             }
