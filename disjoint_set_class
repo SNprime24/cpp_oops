@@ -17,7 +17,7 @@ class disjointset{
             }
 
             // int finds(int x){
-            //    if(parent[x]==x)return x                       //without path compression
+            //    if(parent[x]==x)return x;                       //without path compression
             //    return finds(parent[x]);
             // }
 
